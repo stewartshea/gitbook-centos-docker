@@ -8,6 +8,6 @@ node {
         input id: 'Approve01', message: 'Wanna push to prod?????', ok: 'HANG TIGHT!'
 
     stage 'tag and promote'
-        sh "oc tag gitbook-centos-docker gitbook-centos-docker:prod"
+        sh "oc tag gitbook-centos-docker:latest gitbook-centos-docker:prod"
 
 }
