@@ -1,6 +1,8 @@
 node {
     stage 'build'
         openshiftBuild(bldCfg: 'gitbook-centos-docker')
+    stage 'scan'
+        aqua hideBase: false, hostedImage: '', localImage: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'ignore', registry: '', showNegligible: false
     stage 'deploy'
         sh "oc rollout latest dc/gitbook-centos-docker"
 
