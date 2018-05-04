@@ -6,6 +6,7 @@ if ! whoami &> /dev/null; then
 fi
 exec "$@"
 
+rm -rf docs
 git clone -b  $BRANCH $GIT_URL docs
 cd docs
 gitbook install
