@@ -7,7 +7,7 @@ fi
 exec "$@"
 
 rm -rf docs
-#cd docs
-git clone -b  $BRANCH $GIT_URL .
+git clone -b  $BRANCH $GIT_URL docs
+cd docs/docs
 gitbook install
 gitbook serve
