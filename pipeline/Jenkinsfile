@@ -1,8 +1,14 @@
 node {
     stage 'build'
         openshiftBuild(bldCfg: 'gitbook-centos-docker')
-    stage 'scan'
-        aqua hideBase: false, hostedImage: '', localImage: '', locationType: 'local', notCompliesCmd: '', onDisallowed: 'ignore', registry: '', showNegligible: false
+    stage 'scan image'
+        withCredentials([usernamePassword(credentialsId: '93f8782b-6eb0-42e8-a24b-a2ecddb8cbf5', passwordVariable: 'password', usernameVariable: 'username')]) {
+            sh '''
+            docker login -e=unused-u=$username -p=$password docker-registry-default.apps.54.197.37.244.xip.io
+            '''
+        }
+        aqua hideBase: false, hostedImage: 'security-build-test/gitbook-centos-docker', localImage: '', locationType: 'hosted', notCompliesCmd: '', onDisallowed: 'fail', registry: 'OpenShift', showNegligible: false
+
     stage 'deploy'
         sh "oc rollout latest dc/gitbook-centos-docker"
 
